@@ -2,7 +2,7 @@ package com.caua.usuario.infrastructure.security;
 
 
 
-import com.caua.usuario.infrastructure.entity.Usuario;
+import com.caua.usuario.infrastructure.entity.User;
 import com.caua.usuario.infrastructure.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // Busca o usuário no banco de dados pelo e-mail
-        Usuario usuario = userRepository.findByEmail(email)
+        User usuario = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
 
         // Cria e retorna um objeto UserDetails com base no usuário encontrado

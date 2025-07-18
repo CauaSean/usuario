@@ -1,10 +1,11 @@
 package com.caua.usuario.business;
 
 import com.caua.usuario.business.converter.UserConverter;
-import com.caua.usuario.business.dto.UserDTO;
+import com.caua.usuario.business.dto.UsuarioDTO;
+import com.caua.usuario.infrastructure.entity.Usuario;
 import com.caua.usuario.infrastructure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,9 +15,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
 
-    public UserDTO saveUser(UserDTO userDTO){
-        User user = userConverter.toUser(userDTO);
-        user = userRepository.save(user);
-        return userConverter
+    public UsuarioDTO saveUser(UsuarioDTO usuarioDTO){
+        Usuario usuario = userConverter.toUser(usuarioDTO);
+        usuario = userRepository.save(usuario);
+        return userConverter.toUserDTO(usuario);
     }
 }

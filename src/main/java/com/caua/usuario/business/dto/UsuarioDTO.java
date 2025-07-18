@@ -9,12 +9,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDTO {
+public class UsuarioDTO {
 
     private String nome;
     private String email;
     private String senha;
-    private List<AddressDTO> enderecos;
-    private  List<CellphoneDTO> telefones;
+    private List<AddressDTO> addresses;
+    private  List<CellphoneDTO> cellphones;
 
 }

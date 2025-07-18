@@ -3,9 +3,10 @@ package com.caua.usuario.business;
 import com.caua.usuario.business.converter.UserConverter;
 import com.caua.usuario.business.dto.UsuarioDTO;
 import com.caua.usuario.infrastructure.entity.Usuario;
+import com.caua.usuario.infrastructure.exceptions.ConflictException;
 import com.caua.usuario.infrastructure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,10 +15,27 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserConverter userConverter;
+    private final PasswordEncoder passwordEncoder;
 
     public UsuarioDTO saveUser(UsuarioDTO usuarioDTO){
+        emailExists(usuarioDTO.getEmail());
+        usuarioDTO.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
         Usuario usuario = userConverter.toUser(usuarioDTO);
         usuario = userRepository.save(usuario);
         return userConverter.toUserDTO(usuario);
+    }
+
+    public void emailExists(String email){
+        try{
+            boolean exist = verifyEmailExists(email);
+            if(exist){
+                throw new ConflictException("Email já cadastrado" + email);
+            }
+        }catch(ConflictException e){
+            throw new ConflictException("Email já cadastrado" + e.getCause());
+        }
+    }
+    public boolean verifyEmailExists(String email){
+        return userRepository.existsByEmail(email);
     }
 }

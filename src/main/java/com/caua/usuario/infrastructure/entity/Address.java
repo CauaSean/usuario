@@ -33,5 +33,4 @@ public class Address {
 
     @Column(name = "cep", length = 9)
     private String cep;
-
 }

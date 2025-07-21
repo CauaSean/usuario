@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AddressDTO {
+public class EnderecoDTO {
 
 
     private String rua;

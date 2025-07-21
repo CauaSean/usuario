@@ -1,10 +1,10 @@
 package com.caua.usuario.infrastructure.repository;
 
-import com.caua.usuario.infrastructure.entity.Address;
+import com.caua.usuario.infrastructure.entity.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AddressRepository extends JpaRepository<Address, Long> {
+public interface AddressRepository extends JpaRepository<Endereco, Long> {
 
 }

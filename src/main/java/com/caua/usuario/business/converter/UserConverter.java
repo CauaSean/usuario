@@ -1,10 +1,10 @@
 package com.caua.usuario.business.converter;
 
-import com.caua.usuario.business.dto.AddressDTO;
-import com.caua.usuario.business.dto.CellphoneDTO;
+import com.caua.usuario.business.dto.EnderecoDTO;
+import com.caua.usuario.business.dto.TelefoneDTO;
 import com.caua.usuario.business.dto.UsuarioDTO;
-import com.caua.usuario.infrastructure.entity.Address;
-import com.caua.usuario.infrastructure.entity.Cellphone;
+import com.caua.usuario.infrastructure.entity.Endereco;
+import com.caua.usuario.infrastructure.entity.Telefone;
 import com.caua.usuario.infrastructure.entity.Usuario;
 import org.springframework.stereotype.Component;
 
@@ -18,17 +18,17 @@ public class UserConverter {
                 .nome(usuarioDTO.getNome())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
-                .addresses(toAddressList(usuarioDTO.getAddresses()))
-                .cellphones(toCellphoneList(usuarioDTO.getCellphones()))
+                .enderecos(toAddressList(usuarioDTO.getEnderecos()))
+                .telefones(toCellphoneList(usuarioDTO.getTelefones()))
                 .build();
     }
     //criacao de uma lista de enderecos para cada endereco
-    public List<Address> toAddressList(List<AddressDTO> addressDTOS){
+    public List<Endereco> toAddressList(List<EnderecoDTO> addressDTOS){
         return addressDTOS.stream().map(this::toAddress).toList();
     }
 
-    public Address toAddress(AddressDTO addressDTO){
-        return Address.builder()
+    public Endereco toAddress(EnderecoDTO addressDTO){
+        return Endereco.builder()
                 .rua(addressDTO.getRua())
                 .numero(addressDTO.getNumero())
                 .cidade(addressDTO.getCidade())
@@ -38,12 +38,12 @@ public class UserConverter {
                 .build();
     }
     //criacao de uma lista de telefones para cada telefone
-    public List<Cellphone> toCellphoneList(List<CellphoneDTO> cellphoneDTOS){
+    public List<Telefone> toCellphoneList(List<TelefoneDTO> cellphoneDTOS){
         return cellphoneDTOS.stream().map(this::toCellphone).toList();
     }
 
-    public Cellphone toCellphone(CellphoneDTO cellphoneDTO){
-        return Cellphone.builder()
+    public Telefone toCellphone(TelefoneDTO cellphoneDTO){
+        return Telefone.builder()
                 .numero(cellphoneDTO.getNumero())
                 .ddd(cellphoneDTO.getDdd())
                 .build();
@@ -54,17 +54,17 @@ public class UserConverter {
                 .nome(userDTO.getNome())
                 .email(userDTO.getEmail())
                 .senha(userDTO.getSenha())
-                .addresses(toAddressListDTO(userDTO.getAddresses()))
-                .cellphones(toCellphoneListDTO(userDTO.getCellphones()))
+                .enderecos(toAddressListDTO(userDTO.getEnderecos()))
+                .telefones(toCellphoneListDTO(userDTO.getTelefones()))
                 .build();
     }
     //criacao de uma lista de enderecos para cada endereco
-    public List<AddressDTO> toAddressListDTO(List<Address> addressDTOS){
+    public List<EnderecoDTO> toAddressListDTO(List<Endereco> addressDTOS){
         return addressDTOS.stream().map(this::toAddressDTO).toList();
     }
 
-    public AddressDTO toAddressDTO(Address addressDTO){
-        return AddressDTO.builder()
+    public EnderecoDTO toAddressDTO(Endereco addressDTO){
+        return EnderecoDTO.builder()
                 .rua(addressDTO.getRua())
                 .numero(addressDTO.getNumero())
                 .cidade(addressDTO.getCidade())
@@ -74,12 +74,12 @@ public class UserConverter {
                 .build();
     }
     //criacao de uma lista de telefones para cada telefone
-    public List<CellphoneDTO> toCellphoneListDTO(List<Cellphone> cellphoneDTOS){
+    public List<TelefoneDTO> toCellphoneListDTO(List<Telefone> cellphoneDTOS){
         return cellphoneDTOS.stream().map(this::toCellphoneDTO).toList();
     }
 
-    public CellphoneDTO toCellphoneDTO(Cellphone cellphoneDTO){
-        return CellphoneDTO.builder()
+    public TelefoneDTO toCellphoneDTO(Telefone cellphoneDTO){
+        return TelefoneDTO.builder()
                 .numero(cellphoneDTO.getNumero())
                 .ddd(cellphoneDTO.getDdd())
                 .build();

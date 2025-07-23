@@ -4,6 +4,7 @@ import com.caua.usuario.business.converter.UserConverter;
 import com.caua.usuario.business.dto.UsuarioDTO;
 import com.caua.usuario.infrastructure.entity.Usuario;
 import com.caua.usuario.infrastructure.exceptions.ConflictException;
+import com.caua.usuario.infrastructure.exceptions.ResourceNotFoundException;
 import com.caua.usuario.infrastructure.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,4 +39,12 @@ public class UserService {
     public boolean verifyEmailExists(String email){
         return userRepository.existsByEmail(email);
     }
+
+    public Usuario buscarUsuarioPorEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("Email nao encontrado" + email));
+    }
+
+    public void deletarUsuarioPorEmail(String email){userRepository.deleteByEmail(email);}
+
 }

@@ -40,7 +40,13 @@ public class UserController {
 
     @DeleteMapping("/{email}")
     public ResponseEntity<Void> deletaUsuarioPorEmail(@PathVariable String email){
-        userService.deletaUsuarioPorEmail(email);
+        userService.deletarUsuarioPorEmail(email);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> atualizaDadosUsuario(@RequestBody UsuarioDTO usuarioDTO,
+                                                           @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(userService.atualizaDadosUsuario(token, usuarioDTO));
     }
 }

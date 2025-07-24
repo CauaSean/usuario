@@ -7,7 +7,6 @@ import com.caua.usuario.infrastructure.entity.Endereco;
 import com.caua.usuario.infrastructure.entity.Telefone;
 import com.caua.usuario.infrastructure.entity.Usuario;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 @Component
@@ -82,6 +81,17 @@ public class UserConverter {
         return TelefoneDTO.builder()
                 .numero(cellphoneDTO.getNumero())
                 .ddd(cellphoneDTO.getDdd())
+                .build();
+    }
+
+    public Usuario updateUsuario(UsuarioDTO usuarioDTO, Usuario usuario){
+        return Usuario.builder()
+                .id(usuario.getId())
+                .nome(usuarioDTO.getNome() != null ? usuarioDTO.getNome() : usuario.getNome())
+                .email(usuarioDTO.getEmail() != null ? usuarioDTO.getEmail() : usuario.getEmail())
+                .senha(usuarioDTO.getSenha() != null ? usuarioDTO.getSenha() : usuario.getSenha())
+                .enderecos(usuario.getEnderecos())
+                .telefones(usuario.getTelefones())
                 .build();
     }
 }

@@ -48,13 +48,13 @@ public class UserConverter {
                 .build();
     }
 
-    public UsuarioDTO toUserDTO(Usuario userDTO){
+    public UsuarioDTO toUserDTO(Usuario user){
         return UsuarioDTO.builder()
-                .nome(userDTO.getNome())
-                .email(userDTO.getEmail())
-                .senha(userDTO.getSenha())
-                .enderecos(toAddressListDTO(userDTO.getEnderecos()))
-                .telefones(toCellphoneListDTO(userDTO.getTelefones()))
+                .nome(user.getNome())
+                .email(user.getEmail())
+                .senha(user.getSenha())
+                .enderecos(toAddressListDTO(user.getEnderecos()))
+                .telefones(toCellphoneListDTO(user.getTelefones()))
                 .build();
     }
     //criacao de uma lista de enderecos para cada endereco
@@ -62,14 +62,15 @@ public class UserConverter {
         return addressDTOS.stream().map(this::toAddressDTO).toList();
     }
 
-    public EnderecoDTO toAddressDTO(Endereco addressDTO){
+    public EnderecoDTO toAddressDTO(Endereco address){
         return EnderecoDTO.builder()
-                .rua(addressDTO.getRua())
-                .numero(addressDTO.getNumero())
-                .cidade(addressDTO.getCidade())
-                .complemento(addressDTO.getComplemento())
-                .cep(addressDTO.getCep())
-                .estado(addressDTO.getEstado())
+                .id(address.getId())
+                .rua(address.getRua())
+                .numero(address.getNumero())
+                .cidade(address.getCidade())
+                .complemento(address.getComplemento())
+                .cep(address.getCep())
+                .estado(address.getEstado())
                 .build();
     }
     //criacao de uma lista de telefones para cada telefone
@@ -77,10 +78,11 @@ public class UserConverter {
         return cellphoneDTOS.stream().map(this::toCellphoneDTO).toList();
     }
 
-    public TelefoneDTO toCellphoneDTO(Telefone cellphoneDTO){
+    public TelefoneDTO toCellphoneDTO(Telefone cellphone){
         return TelefoneDTO.builder()
-                .numero(cellphoneDTO.getNumero())
-                .ddd(cellphoneDTO.getDdd())
+                .id(cellphone.getId())
+                .numero(cellphone.getNumero())
+                .ddd(cellphone.getDdd())
                 .build();
     }
 
@@ -92,6 +94,26 @@ public class UserConverter {
                 .senha(usuarioDTO.getSenha() != null ? usuarioDTO.getSenha() : usuario.getSenha())
                 .enderecos(usuario.getEnderecos())
                 .telefones(usuario.getTelefones())
+                .build();
+    }
+
+    public Endereco updateEndereco(EnderecoDTO dto, Endereco entity){
+        return Endereco.builder()
+                .id(entity.getId())
+                .rua(dto.getRua() != null ? dto.getRua() : entity.getRua())
+                .numero(dto.getNumero() != null ? dto.getNumero() : entity.getNumero())
+                .complemento(dto.getComplemento() != null ? dto.getComplemento() : entity.getComplemento())
+                .cidade(dto.getCidade() != null ? dto.getCidade() : entity.getCidade())
+                .estado(dto.getEstado() != null ? dto.getEstado() : entity.getEstado())
+                .cep(dto.getCep() != null ? dto.getCep() : entity.getCep())
+                .build();
+    }
+
+    public Telefone updateTelefone(TelefoneDTO dto, Telefone entity){
+        return Telefone.builder()
+                .id(entity.getId())
+                .ddd(dto.getDdd() != null ? dto.getDdd() : entity.getDdd())
+                .numero(dto.getNumero() != null ? dto.getNumero() : entity.getNumero())
                 .build();
     }
 }

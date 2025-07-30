@@ -1,6 +1,8 @@
 package com.caua.usuario.controller;
 
 import com.caua.usuario.business.UserService;
+import com.caua.usuario.business.dto.EnderecoDTO;
+import com.caua.usuario.business.dto.TelefoneDTO;
 import com.caua.usuario.business.dto.UsuarioDTO;
 import com.caua.usuario.infrastructure.entity.Usuario;
 import com.caua.usuario.infrastructure.security.JwtUtil;
@@ -34,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<Usuario> buscaUsuarioPorEmail(@RequestParam("email") String email){
+    public ResponseEntity<UsuarioDTO> buscaUsuarioPorEmail(@RequestParam("email") String email){
         return ResponseEntity.ok(userService.buscarUsuarioPorEmail(email));
     }
 
@@ -48,5 +50,17 @@ public class UserController {
     public ResponseEntity<UsuarioDTO> atualizaDadosUsuario(@RequestBody UsuarioDTO usuarioDTO,
                                                            @RequestHeader("Authorization") String token){
         return ResponseEntity.ok(userService.atualizaDadosUsuario(token, usuarioDTO));
+    }
+
+    @PutMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> atualizaEndereco(@RequestBody EnderecoDTO dto,
+                                                        @RequestParam ("id") Long id){
+        return ResponseEntity.ok(userService.atualizaEndereco(id, dto));
+    }
+
+    @PutMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> atualizaTelefone(@RequestBody TelefoneDTO dto,
+                                                        @RequestParam ("id") Long id){
+        return ResponseEntity.ok(userService.atualizaTelefone(id, dto));
     }
 }

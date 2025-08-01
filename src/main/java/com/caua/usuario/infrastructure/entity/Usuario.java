@@ -34,7 +34,6 @@ public class Usuario implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-
     private List<Endereco> enderecos;
 
     @OneToMany(cascade = CascadeType.ALL)

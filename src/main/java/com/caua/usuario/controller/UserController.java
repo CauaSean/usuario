@@ -27,11 +27,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(), usuarioDTO.getSenha())
         );
-        return "Bearer " + jwtUtil.generateToken(authentication.getName());
+        return ResponseEntity.ok("Bearer " + jwtUtil.generateToken(authentication.getName()));
     }
 
     @GetMapping

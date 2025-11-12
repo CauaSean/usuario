@@ -1,9 +1,11 @@
 package com.caua.usuario.controller;
 
 import com.caua.usuario.business.UserService;
+import com.caua.usuario.business.ViaCepService;
 import com.caua.usuario.business.dto.EnderecoDTO;
 import com.caua.usuario.business.dto.TelefoneDTO;
 import com.caua.usuario.business.dto.UsuarioDTO;
+import com.caua.usuario.infrastructure.clients.ViaCepDTO;
 import com.caua.usuario.infrastructure.security.JwtUtil;
 import com.caua.usuario.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -25,6 +27,7 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final ViaCepService viaCepService;
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> saveUser(@RequestBody UsuarioDTO usuarioDTO){
@@ -66,5 +69,10 @@ public class UserController {
     public ResponseEntity<TelefoneDTO> atualizaTelefone(@RequestBody TelefoneDTO dto,
                                                         @RequestParam ("id") Long id){
         return ResponseEntity.ok(userService.atualizaTelefone(id, dto));
+    }
+
+    @GetMapping("/endereco/{cep}")
+    public ResponseEntity<ViaCepDTO> buscarDadosCep(@PathVariable("cep") String cep){
+        return ResponseEntity.ok(viaCepService.buscarDadosEndereco(cep));
     }
 }

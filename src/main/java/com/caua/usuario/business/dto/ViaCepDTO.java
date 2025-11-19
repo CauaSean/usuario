@@ -1,4 +1,4 @@
-package com.caua.usuario.infrastructure.clients;
+package com.caua.usuario.business.dto;
 
 import lombok.*;
 

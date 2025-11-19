@@ -3,7 +3,7 @@ package com.caua.usuario.business;
 
 
 import com.caua.usuario.infrastructure.clients.ViaCepClient;
-import com.caua.usuario.infrastructure.clients.ViaCepDTO;
+import com.caua.usuario.business.dto.ViaCepDTO;
 import com.caua.usuario.infrastructure.exceptions.IlegalArgumentException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

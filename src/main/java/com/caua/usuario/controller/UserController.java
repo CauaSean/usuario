@@ -5,7 +5,7 @@ import com.caua.usuario.business.ViaCepService;
 import com.caua.usuario.business.dto.EnderecoDTO;
 import com.caua.usuario.business.dto.TelefoneDTO;
 import com.caua.usuario.business.dto.UsuarioDTO;
-import com.caua.usuario.infrastructure.clients.ViaCepDTO;
+import com.caua.usuario.business.dto.ViaCepDTO;
 import com.caua.usuario.infrastructure.security.JwtUtil;
 import com.caua.usuario.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

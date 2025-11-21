@@ -28,8 +28,7 @@ public class ViaCepService {
         String cepFormatado = cep.replace(" ", "")
                 .replace("-", "");
 
-        if(!cepFormatado.matches("[0-9]")
-                || !Objects.equals(cepFormatado.length(), 8)){
+        if(!cepFormatado.matches("\\d{8}")){
             throw new IllegalArgumentException("O cep contém caracteres inválidos, favor verificar");
         }
 

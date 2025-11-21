@@ -17,8 +17,8 @@ public class UserConverter {
                 .nome(usuarioDTO.getNome())
                 .email(usuarioDTO.getEmail())
                 .senha(usuarioDTO.getSenha())
-                .enderecos(toAddressList(usuarioDTO.getEnderecos()))
-                .telefones(toCellphoneList(usuarioDTO.getTelefones()))
+                .enderecos(usuarioDTO.getEnderecos() != null ? toAddressList(usuarioDTO.getEnderecos()) : null)
+                .telefones(usuarioDTO.getTelefones() != null ? toCellphoneList(usuarioDTO.getTelefones()) : null)
                 .build();
     }
     //criacao de uma lista de enderecos para cada endereco
@@ -48,18 +48,18 @@ public class UserConverter {
                 .build();
     }
 
-    public UsuarioDTO toUserDTO(Usuario user){
+    public UsuarioDTO toUserDTO(Usuario usuario){
         return UsuarioDTO.builder()
-                .nome(user.getNome())
-                .email(user.getEmail())
-                .senha(user.getSenha())
-                .enderecos(toAddressListDTO(user.getEnderecos()))
-                .telefones(toCellphoneListDTO(user.getTelefones()))
+                .nome(usuario.getNome())
+                .email(usuario.getEmail())
+                .senha(usuario.getSenha())
+                .enderecos(usuario.getEnderecos() != null ? toAddressListDTO(usuario.getEnderecos()) : null)
+                .telefones(usuario.getTelefones() != null ? toCellphoneListDTO(usuario.getTelefones()) : null)
                 .build();
     }
     //criacao de uma lista de enderecos para cada endereco
-    public List<EnderecoDTO> toAddressListDTO(List<Endereco> addressDTOS){
-        return addressDTOS.stream().map(this::toAddressDTO).toList();
+    public List<EnderecoDTO> toAddressListDTO(List<Endereco> address){
+        return address.stream().map(this::toAddressDTO).toList();
     }
 
     public EnderecoDTO toAddressDTO(Endereco address){

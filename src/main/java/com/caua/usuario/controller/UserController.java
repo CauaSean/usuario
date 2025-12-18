@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
     private final ViaCepService viaCepService;
 
     @PostMapping
@@ -36,10 +34,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(), usuarioDTO.getSenha())
-        );
-        return ResponseEntity.ok("Bearer " + jwtUtil.generateToken(authentication.getName()));
+        return ResponseEntity.ok(userService.autenticarUsuario(usuarioDTO));
     }
 
     @GetMapping

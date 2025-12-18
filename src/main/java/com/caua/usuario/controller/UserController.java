@@ -1,9 +1,11 @@
 package com.caua.usuario.controller;
 
 import com.caua.usuario.business.UserService;
+import com.caua.usuario.business.ViaCepService;
 import com.caua.usuario.business.dto.EnderecoDTO;
 import com.caua.usuario.business.dto.TelefoneDTO;
 import com.caua.usuario.business.dto.UsuarioDTO;
+import com.caua.usuario.business.dto.ViaCepDTO;
 import com.caua.usuario.infrastructure.security.JwtUtil;
 import com.caua.usuario.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -23,8 +25,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
+    private final ViaCepService viaCepService;
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> saveUser(@RequestBody UsuarioDTO usuarioDTO){
@@ -33,10 +34,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(), usuarioDTO.getSenha())
-        );
-        return ResponseEntity.ok("Bearer " + jwtUtil.generateToken(authentication.getName()));
+        return ResponseEntity.ok(userService.autenticarUsuario(usuarioDTO));
     }
 
     @GetMapping
@@ -66,5 +64,10 @@ public class UserController {
     public ResponseEntity<TelefoneDTO> atualizaTelefone(@RequestBody TelefoneDTO dto,
                                                         @RequestParam ("id") Long id){
         return ResponseEntity.ok(userService.atualizaTelefone(id, dto));
+    }
+
+    @GetMapping("/endereco/{cep}")
+    public ResponseEntity<ViaCepDTO> buscarDadosCep(@PathVariable("cep") String cep){
+        return ResponseEntity.ok(viaCepService.buscarDadosEndereco(cep));
     }
 }
